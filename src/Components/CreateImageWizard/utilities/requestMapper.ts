@@ -197,7 +197,7 @@ export const mapRequestFromState = (
     description: selectBlueprintDescription(state),
     distribution: selectDistribution(state),
     ...(extendedReleaseStream
-      ? { extended_release_stream: [extendedReleaseStream] }
+      ? { extended_release_stream: extendedReleaseStream }
       : {}),
     bootc: bootcBody,
     image_requests: imageRequests,
@@ -555,9 +555,8 @@ function commonRequestToState(
     distribution:
       getLatestRelease(request.distribution) ?? initialState.distribution,
     extendedReleaseStream:
-      'extended_release_stream' in request &&
-      request.extended_release_stream?.length
-        ? request.extended_release_stream[0]
+      'extended_release_stream' in request
+        ? request.extended_release_stream
         : undefined,
     imageSource: 'bootc' in request ? request.bootc?.reference : undefined,
     isoPayloadReference: request.bootc?.iso_payload_reference,

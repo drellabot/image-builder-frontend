@@ -912,7 +912,7 @@ export type CreateBlueprintRequest = {
    *  must be a specific minor version (e.g. rhel-94). Valid values are "eus",
    *  "e4s", and "eeus".
    */
-  extended_release_stream?: string[] | undefined;
+  extended_release_stream?: string | undefined;
   bootc?: BootcBody | undefined;
   /** Array of image requests. Having more image requests in a single blueprint is currently not supported.
    */
@@ -934,7 +934,7 @@ export type BlueprintResponse = {
   description: string;
   lint: BlueprintLint;
   distribution?: Distributions | undefined;
-  extended_release_stream?: string[] | undefined;
+  extended_release_stream?: string | undefined;
   bootc?: BootcBody | undefined;
   /** Array of image requests. Having more image requests in a single blueprint is currently not supported.
    */
@@ -945,7 +945,7 @@ export type BlueprintExportResponse = {
   name: string;
   description: string;
   distribution?: Distributions | undefined;
-  extended_release_stream?: string[] | undefined;
+  extended_release_stream?: string | undefined;
   bootc?: BootcBody | undefined;
   customizations: Customizations;
   metadata: BlueprintMetadata;
@@ -964,7 +964,7 @@ export type ComposeResponse = {
 export type ClientId = "api" | "ui" | "mcp";
 export type ComposeRequest = {
   distribution?: Distributions | undefined;
-  extended_release_stream?: string[] | undefined;
+  extended_release_stream?: string | undefined;
   bootc?: BootcBody | undefined;
   image_name?: string | undefined;
   image_description?: string | undefined;
