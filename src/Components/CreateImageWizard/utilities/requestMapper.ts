@@ -68,6 +68,7 @@ import {
   selectDiskType,
   selectDiskUnit,
   selectDistribution,
+  selectExtendedReleaseStream,
   selectFilesystemPartitions,
   selectFips,
   selectFirewall,
@@ -188,11 +189,16 @@ export const mapRequestFromState = (
         }
       : undefined;
 
+  const extendedReleaseStream = selectExtendedReleaseStream(state);
+
   return {
     name: selectBlueprintName(state),
     metadata: selectMetadata(state),
     description: selectBlueprintDescription(state),
     distribution: selectDistribution(state),
+    ...(extendedReleaseStream
+      ? { extended_release_stream: [extendedReleaseStream] }
+      : {}),
     bootc: bootcBody,
     image_requests: imageRequests,
     customizations,
@@ -548,6 +554,11 @@ function commonRequestToState(
     // the user can pick the correct distro in the wizard.
     distribution:
       getLatestRelease(request.distribution) ?? initialState.distribution,
+    extendedReleaseStream:
+      'extended_release_stream' in request &&
+      request.extended_release_stream?.length
+        ? request.extended_release_stream[0]
+        : undefined,
     imageSource: 'bootc' in request ? request.bootc?.reference : undefined,
     isoPayloadReference: request.bootc?.iso_payload_reference,
     imageTypes: request.image_requests.map((image) => image.image_type),

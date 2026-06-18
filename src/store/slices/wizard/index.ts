@@ -123,6 +123,7 @@ export type wizardState = {
   bootcDistributions: BootcDistributionItem[];
   architecture: ImageRequest['architecture'];
   distribution: Distributions;
+  extendedReleaseStream?: string | undefined;
   imageTypes: ImageTypes[];
   aapRegistration: {
     enabled: boolean;
@@ -381,6 +382,10 @@ export const selectArchitecture = (state: RootState) => {
 
 export const selectDistribution = (state: RootState) => {
   return state.wizard.distribution;
+};
+
+export const selectExtendedReleaseStream = (state: RootState) => {
+  return state.wizard.extendedReleaseStream;
 };
 
 export const selectImageTypes = (state: RootState) => {
@@ -835,6 +840,12 @@ export const wizardSlice = createSlice({
       if (process.env.IS_ON_PREMISE && !isRhel(action.payload)) {
         state.registration.registrationType = 'register-later';
       }
+    },
+    changeExtendedReleaseStream: (
+      state,
+      action: PayloadAction<string | undefined>,
+    ) => {
+      state.extendedReleaseStream = action.payload;
     },
     addImageType: (state, action: PayloadAction<ImageTypes>) => {
       // Remove (if present) before adding to avoid duplicates
@@ -1898,5 +1909,6 @@ export const {
   changeRedHatRepositories,
   changeFips,
   setVerifiedLocaleLangpacks,
+  changeExtendedReleaseStream,
 } = wizardSlice.actions;
 export default wizardSlice.reducer;

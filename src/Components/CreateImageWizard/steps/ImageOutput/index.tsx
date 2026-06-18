@@ -21,6 +21,7 @@ import {
 import ArchSelect from './components/ArchSelect';
 import BlueprintMode from './components/BlueprintMode';
 import CentOSAcknowledgement from './components/CentOSAcknowledgement';
+import ExtendedReleaseStreamSelect from './components/ExtendedReleaseStreamSelect';
 import ImageSourceSelect from './components/ImageSourceSelect';
 import ReleaseLifecycle from './components/ReleaseLifecycle';
 import ReleaseSelect from './components/ReleaseSelect';
@@ -83,6 +84,7 @@ const ImageOutputStep = () => {
         </>
       )}
       <ArchSelect isDisabled={isHostedImageMode} />
+      {!isImageMode && <ExtendedReleaseStreamSelect />}
       <TargetEnvironment />
     </>
   );
